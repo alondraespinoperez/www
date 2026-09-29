@@ -1,0 +1,884 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Citas API REST con Laravel",
+        "contact": {
+            "email": "s22030116@itsch.edu.mx"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000"
+        }
+    ],
+    "paths": {
+        "/api/citas": {
+            "get": {
+                "tags": [
+                    "Citas"
+                ],
+                "summary": "Consultar todas las citas",
+                "description": "Retorna todas las citas",
+                "operationId": "f72ab7ec2fefc122a15f6144429b447e",
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa"
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    },
+                    "404": {
+                        "description": "No se encontraron recetas"
+                    },
+                    "405": {
+                        "description": "Método no permitido"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Citas"
+                ],
+                "summary": "Crear una nueva cita",
+                "operationId": "c4ab038918e8ec0821701c36d4e04b3e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "empleado_id",
+                                    "cliente_id",
+                                    "fecha_hora"
+                                ],
+                                "properties": {
+                                    "empleado_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "cliente_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "fecha_hora": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-01-15 14:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cita creada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "empleado_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "cliente_id": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "fecha_hora": {
+                                            "type": "string",
+                                            "example": "2025-01-15 14:00:00"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/citas/{id}": {
+            "get": {
+                "tags": [
+                    "Citas"
+                ],
+                "summary": "Mostrar una cita específica",
+                "operationId": "b1d212f71c8c168d16a779cebd74eb8f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la cita",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cita encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "empleado_id": {
+                                            "type": "integer",
+                                            "example": 3
+                                        },
+                                        "cliente_id": {
+                                            "type": "integer",
+                                            "example": 7
+                                        },
+                                        "fecha_hora": {
+                                            "type": "string",
+                                            "example": "2025-03-10 10:00:00"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cita no encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Citas"
+                ],
+                "summary": "Actualizar una cita existente",
+                "operationId": "cd94afa217830e0db15566c9a7daaac0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la cita",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "empleado_id": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "cliente_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "fecha_hora": {
+                                        "type": "string",
+                                        "example": "2025-02-20 09:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Cita actualizada correctamente"
+                    },
+                    "404": {
+                        "description": "Cita no encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Citas"
+                ],
+                "summary": "Eliminar una cita",
+                "operationId": "24f980710de8c15777519be7ad096c21",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la cita",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Cita eliminada correctamente"
+                    },
+                    "404": {
+                        "description": "Cita no encontrada"
+                    }
+                }
+            }
+        },
+        "/api/clientes": {
+            "get": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Listar todos los clientes",
+                "operationId": "f8eafbc2e9500413091c7f84a4470b84",
+                "responses": {
+                    "200": {
+                        "description": "Lista de clientes obtenida correctamente"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Crear un nuevo cliente",
+                "operationId": "2a8a28c7aec782e1af95193a65053e68",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "telefono",
+                                    "password",
+                                    "empleado_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Juan Pérez"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "juan@example.com"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "555-123-4567"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "empleado_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cliente creado exitosamente"
+                    }
+                }
+            }
+        },
+        "/api/clientes/{id}": {
+            "get": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Mostrar un cliente específico",
+                "operationId": "7be647ff4c2ab71c5a1f042133b13428",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cliente encontrado"
+                    },
+                    "404": {
+                        "description": "Cliente no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Actualizar un cliente existente",
+                "operationId": "1cc735d14964cb4b25557d546e807a9c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del cliente a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nombre actualizado"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "actualizado@example.com"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "555-000-1111"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "nuevaPassword123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Cliente actualizado correctamente"
+                    },
+                    "404": {
+                        "description": "Cliente no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Eliminar un cliente",
+                "operationId": "fae533cf0841c3ece1414287d89ef42b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del cliente a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cliente eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "Cliente no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/empleados": {
+            "get": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Lista todos los empleados",
+                "operationId": "843734bf35749b554c0f44b8631d7492",
+                "responses": {
+                    "200": {
+                        "description": "Lista de empleados obtenida correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Empleado"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Crea un nuevo empleado",
+                "operationId": "797a90b42ba6eabad784c56e6287912f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Juan Perez"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "juan@mail.com"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "5551234567"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Empleado creado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Empleado"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                }
+            }
+        },
+        "/api/empleados/{id}": {
+            "get": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Muestra un empleado por ID",
+                "operationId": "fe529a11836b405b06bda1f4118eea09",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del empleado",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empleado encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Empleado"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Empleado no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Actualiza un empleado existente",
+                "operationId": "3e0e39beedb373ee431d344063fbfe01",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del empleado",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Name actualizado"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "nuevo@mail.com"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "5559876543"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "passwordNuevo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Empleado actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Empleado"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Empleado no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Elimina un empleado",
+                "operationId": "5561b5ce018c7ad8a2ccbd86fe1682e9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del empleado",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empleado eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "Empleado no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/servicios": {
+            "get": {
+                "tags": [
+                    "Servicios"
+                ],
+                "summary": "Mostrar todos los servicios",
+                "operationId": "3a1c1c392788bd4c8d03626d48d28645",
+                "responses": {
+                    "200": {
+                        "description": "Lista de servicios obtenida correctamente"
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Servicios"
+                ],
+                "summary": "Crear un nuevo servicio",
+                "operationId": "cd978e7e6c3a84104d6e47bc1775f0f6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "precio",
+                                    "duracion"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Corte de cabello"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "example": 199.99
+                                    },
+                                    "duracion": {
+                                        "type": "string",
+                                        "example": "01:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Servicio creado correctamente"
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    },
+                    "422": {
+                        "description": "Datos inválidos"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/servicios/{id}": {
+            "get": {
+                "tags": [
+                    "Servicios"
+                ],
+                "summary": "Mostrar un servicio por ID",
+                "operationId": "9c04868e405cd028d12617722c41d260",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del servicio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Servicio encontrado"
+                    },
+                    "404": {
+                        "description": "Servicio no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Servicios"
+                ],
+                "summary": "Actualizar un servicio existente",
+                "operationId": "44c627d011d44594d0978735c2198fa6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del servicio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Servicio actualizado"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "example": 300
+                                    },
+                                    "duracion": {
+                                        "type": "string",
+                                        "example": "00:45:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Servicio actualizado correctamente"
+                    },
+                    "404": {
+                        "description": "Servicio no encontrado"
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Servicios"
+                ],
+                "summary": "Eliminar un servicio",
+                "operationId": "fdd7b675238376844570194b662ea1da",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del servicio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Servicio eliminado correctamente"
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    },
+                    "404": {
+                        "description": "Servicio no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Empleado": {
+                "title": "Empleado",
+                "required": [
+                    "id",
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Carlos López"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "carlos@mail.com"
+                    },
+                    "telefono": {
+                        "type": "string",
+                        "example": "5552345678"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2025-01-15 12:30:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2025-01-16 14:10:00"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "Bearer token en el header Authorization"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Citas",
+            "description": "Endpoints para gestionar citas"
+        },
+        {
+            "name": "Clientes",
+            "description": "Endpoints para la gestión de clientes"
+        },
+        {
+            "name": "Empleados",
+            "description": "Endpoints para la gestión de empleados"
+        },
+        {
+            "name": "Servicios",
+            "description": "Endpoints para la gestión de servicios"
+        }
+    ],
+    "security": [
+        {
+            "bearer_token": []
+        }
+    ]
+}
